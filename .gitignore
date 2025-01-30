@@ -173,5 +173,5 @@ cython_debug/
 # data
 data/
 vol/
-.csv
-.csv.gz
+*.csv
+*.csv.gz
