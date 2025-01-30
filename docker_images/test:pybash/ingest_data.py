@@ -34,13 +34,14 @@ def main(params):
         try:
             dtype_dict = json.loads(params.dtypes)
         except json.JSONDecodeError:
+            print('error:dtypes')
             # Fallback if it's not valid JSON but is a Python dict string
             dtype_dict = eval(params.dtypes)
     else:
         dtype_dict = None
     
     if params.parse_dates:
-        parse_date_list = [col.strip() for col in params.parse_dates.split(',')]
+        parse_date_list = [str(col.strip()) for col in params.parse_dates.split(',')]
     else:
         parse_date_list = []
 
@@ -84,6 +85,20 @@ def main(params):
         except StopIteration:
             print("Finished ingesting data into the postgres database")
             break
+    
+    show_table(table_name, engine)
+
+def show_table(table_name, conn):
+    q = f'''
+        SELECT * 
+        FROM {table_name}
+        LIMIT 10;
+        '''
+
+    df = pd.read_sql(q, con = conn)
+    print(q)
+    print(df)
+    
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Ingest CSV data to Postgres')
