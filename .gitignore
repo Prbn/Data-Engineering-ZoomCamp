@@ -218,3 +218,8 @@ terraform.rc
 
 # ssh keys
 .ssh/
+
+# Cloud keys
+.gc/
+.aws/
+.azure/
