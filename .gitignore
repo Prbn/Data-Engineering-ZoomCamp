@@ -220,6 +220,7 @@ terraform.rc
 .ssh/
 
 # Cloud keys
+keys/
 .gc/
 .aws/
 .azure/
